@@ -1,0 +1,10 @@
+{
+  "name": "WebOS Plasma",
+  "short_name": "WebOS",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d1019",
+  "theme_color": "#151a2b",
+  "description": "Offline-first KDE Plasma inspired browser desktop"
+}
