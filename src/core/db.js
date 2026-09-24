@@ -1,5 +1,5 @@
 const DB_NAME="webos-plasma";
-const VERSION=1;
+const VERSION=2;
 let dbPromise;
 
 function openDB(){
@@ -12,6 +12,7 @@ function openDB(){
       if(!db.objectStoreNames.contains("packages")) db.createObjectStore("packages",{keyPath:"id"});
       if(!db.objectStoreNames.contains("settings")) db.createObjectStore("settings",{keyPath:"key"});
       if(!db.objectStoreNames.contains("vm")) db.createObjectStore("vm",{keyPath:"id"});
+      if(!db.objectStoreNames.contains("customapps")) db.createObjectStore("customapps",{keyPath:"id"});
     };
     r.onsuccess=()=>resolve(r.result);
     r.onerror=()=>reject(r.error);
