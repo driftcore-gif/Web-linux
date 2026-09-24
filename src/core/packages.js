@@ -9,7 +9,8 @@ export const REPO=[
  {id:"system-monitor",name:"System Monitor",version:"1.0",icon:"📊",category:"System",description:"Browser resource monitor"},
  {id:"vm-manager",name:"VM Manager",version:"1.0",icon:"💿",category:"System",description:"v86 x86 virtual machine manager (planned)"},
  {id:"virus-scanner",name:"SafeGuard Antivirus",version:"3.1",icon:"🛡️",category:"Joke/Retro",description:"A fake, harmless virus scanner. Pure nostalgia, no real scanning."},
- {id:"you-are-an-idiot",name:"You Are An Idiot",version:"1.0",icon:"🦜",category:"Joke/Retro",description:"Classic late-90s joke program. Purely for laughs."},
+ {id:"you-are-an-idiot",name:"You Are An Idiot",version:"1.0",icon:"🦜",category:"Joke/Retro",description:"Classic late-90s joke program - can spawn 6 prank popup windows."},
  {id:"vnc-viewer",name:"Remote Desktop Arcade",version:"1.0",icon:"🖥️",category:"Joke/Retro",description:"A fake VNC client that 'connects' to a retro arcade game."},
+ {id:"vnc-client",name:"VNC Client",version:"1.0",icon:"🖧",category:"Networking",description:"Real noVNC client - connects to any WebSocket-reachable VNC/X11 server with host, port and password."},
  {id:"js-console",name:"JS Console",version:"1.0",icon:"🧑‍💻",category:"Dev Tools",description:"Real in-browser JavaScript REPL/interpreter."},
 ];

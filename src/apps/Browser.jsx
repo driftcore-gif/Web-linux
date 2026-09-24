@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect,useRef,useState} from "react";
 
 function normalize(u){
  if(!u) return "https://example.com";
@@ -15,6 +15,8 @@ function newTab(url="https://example.com"){
 export default function Browser(){
  const [tabs,setTabs]=useState([newTab()]);
  const [activeId,setActiveId]=useState(tabs[0].id);
+ const [fullscreen,setFullscreen]=useState(false);
+ const rootRef=useRef(null);
  const active=tabs.find(t=>t.id===activeId)||tabs[0];
 
  function updateTab(id,patch){
@@ -40,7 +42,20 @@ export default function Browser(){
   updateTab(active.id,{key:(active.key||0)+1});
  }
 
- return <div className="browser chrome-browser">
+ function toggleFullscreen(){
+  if(!document.fullscreenElement){
+   rootRef.current?.requestFullscreen?.().catch(()=>{});
+  }else{
+   document.exitFullscreen?.();
+  }
+ }
+ useEffect(()=>{
+  const onChange=()=>setFullscreen(!!document.fullscreenElement && document.fullscreenElement===rootRef.current);
+  document.addEventListener("fullscreenchange",onChange);
+  return ()=>document.removeEventListener("fullscreenchange",onChange);
+ },[]);
+
+ return <div ref={rootRef} className={"browser chrome-browser"+(fullscreen?" is-fullscreen":"")}>
   <div className="chrome-tabbar">
    {tabs.map(t=>
     <div key={t.id} className={"chrome-tab"+(t.id===activeId?" active":"")} onClick={()=>setActiveId(t.id)}>
@@ -59,8 +74,9 @@ export default function Browser(){
     <input value={active.input} onChange={e=>updateTab(active.id,{input:e.target.value})} onKeyDown={e=>e.key==="Enter"&&go()} placeholder="Search Google or type a URL"/>
    </div>
    <button className="chrome-go" onClick={go}>Go</button>
+   <button title={fullscreen?"Exit fullscreen":"Fullscreen"} onClick={toggleFullscreen}>{fullscreen?"⤡":"⤢"}</button>
   </div>
   <p className="muted">Some sites block being embedded in an iframe (X-Frame-Options). Offline browsing only works for already-cached resources.</p>
-  <iframe key={active.id+"-"+(active.key||0)} title="Web-linux Browser" src={active.url}/>
+  <iframe key={active.id+"-"+(active.key||0)} title="Web-linux Browser" src={active.url} allow="fullscreen"/>
  </div>
 }

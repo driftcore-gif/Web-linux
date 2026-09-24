@@ -29,3 +29,24 @@
 .chrome-address input{flex:1;border:0;outline:0;background:transparent;color:inherit;font:inherit}
 .chrome-lock{opacity:.7;font-size:12px}
 .chrome-go{border-radius:999px}
+.idiot-actions{display:flex;gap:8px;flex-wrap:wrap}
+.popup-layer{position:fixed;inset:0;z-index:80;pointer-events:none}
+.popup-window{position:absolute;width:220px;border-radius:8px;border:1px solid #ffffff30;background:#151b2eee;box-shadow:0 15px 40px #0009;pointer-events:auto}
+.popup-titlebar{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:#ffffff12;font-size:12px;border-bottom:1px solid #ffffff18}
+.popup-titlebar button{border:0;background:transparent;color:inherit;font-size:14px;padding:0 4px}
+.popup-body{padding:12px;font-size:13px}
+.popup-closeall{position:fixed;top:14px;right:14px;pointer-events:auto;border:1px solid #ffffff30;border-radius:8px;background:#151b2eee;color:inherit;padding:8px 12px;z-index:81}
+.vncclient{display:flex;flex-direction:column;gap:10px;height:100%}
+.vnc-fields{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.vnc-fields input,.vnc-customurl{padding:9px;border:1px solid #ffffff18;border-radius:8px;background:#ffffff0b;color:inherit;outline:0}
+.vnc-fields input{flex:1;min-width:100px}
+.vnc-customurl{width:100%}
+.vnc-secure{display:flex;align-items:center;gap:6px;font-size:13px;opacity:.85}
+.vnc-actions{display:flex;align-items:center;gap:10px}
+.vnc-status{font-size:12px;padding:4px 9px;border-radius:999px;background:#ffffff10}
+.vnc-status.vnc-connected{background:#16a34a44;color:#4ade80}
+.vnc-status.vnc-connecting{background:#f59e0b44;color:#fbbf24}
+.vnc-screen{flex:0 0 auto;min-height:220px;max-height:320px;overflow:auto;background:#000;border-radius:10px;border:1px solid #ffffff1a}
+.vnc-loglines{max-height:110px}
+.chrome-browser.is-fullscreen{background:#0c1120;padding:10px}
+.chrome-browser.is-fullscreen iframe{height:calc(100vh - 120px)}
