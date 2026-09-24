@@ -1,5 +1,4 @@
 import React,{useEffect,useRef,useState} from "react";
-import RFB from "@novnc/novnc";
 
 // A real VNC client (uses the actual noVNC/RFB protocol implementation - this is not a
 // simulation). It connects over WebSocket, which is the only kind of socket a browser
@@ -11,6 +10,15 @@ import RFB from "@novnc/novnc";
 // It works with any VNC server exporting an X11 desktop (TigerVNC, x11vnc, TightVNC, etc.)
 // exactly the same as a Windows/macOS one - VNC already carries the remote framebuffer, so
 // there's no separate "X11 mode" needed.
+//
+// The @novnc/novnc library is loaded lazily (dynamic import) on first connect attempt,
+// not at app startup - one of its feature-detection checks can throw on some browsers,
+// and importing it eagerly at the top of the bundle would take down the whole desktop.
+let rfbModulePromise;
+function loadRFB(){
+ if(!rfbModulePromise) rfbModulePromise=import("@novnc/novnc").then(m=>m.default||m);
+ return rfbModulePromise;
+}
 
 export default function VncClient(){
  const screenRef=useRef(null);
@@ -35,13 +43,17 @@ export default function VncClient(){
   return `${scheme}://${host}:${port}${p?"/"+p:""}`;
  }
 
- function connect(){
+ async function connect(){
   let url;
   try{ url=buildUrl(); }catch(e){ addLog("Error: "+e.message); return; }
   if(!/^wss?:\/\//i.test(url)){ addLog("Error: URL must start with ws:// or wss://"); return; }
   disconnect();
-  addLog("Connecting to "+url+" ...");
   setStatus("connecting");
+  addLog("Loading VNC client library...");
+  let RFB;
+  try{ RFB=await loadRFB(); }
+  catch(e){ setStatus("disconnected"); addLog("Failed to load VNC library in this browser: "+(e.message||e)); return; }
+  addLog("Connecting to "+url+" ...");
   try{
    const rfb=new RFB(screenRef.current,url,{credentials:{password}});
    rfb.scaleViewport=true;
